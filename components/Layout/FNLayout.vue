@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <FNHeader />
     <main><slot name="book-list"></slot> <BooksList /></main>
     <FNFooter />

@@ -1,0 +1,33 @@
+@use "sass:map";
+@import "./mixins";
+@import "./variables";
+
+html {
+  @include reset;
+}
+body {
+  background-color: map.get($theme-dark-colors, "bgColor");
+  color: map.get($theme-dark-colors, "default");
+  font-family: "Athiti", sans-serif;
+}
+
+.container {
+  width: 1290px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.grid-books {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: auto auto auto auto;
+  width: 100%;
+
+  .grid-item {
+    background-color: #ffffff;
+    img {
+      max-width: 100%;
+    }
+  }
+}
