@@ -1,9 +1,9 @@
-<template v-slot:book-list>
+<template>
   <div>
     <h1 class="page-title">All Books</h1>
 
     <div class="controls-item">
-      <div>Filter: </div>
+      <div>Filter:</div>
       <div>
         <p>Total : {{ totalsPage }} Items</p>
         <p />
@@ -12,7 +12,6 @@
 
     <BooksItem :items="booksList" />
 
-    <BooksItem />
   </div>
 </template>
 <script lang="ts">
