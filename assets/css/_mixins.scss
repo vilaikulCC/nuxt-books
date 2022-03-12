@@ -5,3 +5,17 @@
     box-sizing: border-box;
   }
 }
+
+@mixin btn {
+  border: 0;
+  background-color: $default-color;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: "Athiti", sans-serif;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: lighten($default-color , 15%);
+    cursor: not-allowed;
+  }
+}

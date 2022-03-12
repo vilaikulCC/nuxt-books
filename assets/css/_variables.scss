@@ -1,21 +1,35 @@
-$theme-light-colors: (
-  "primary": #740719,
-  "default": #454555,
-  "secondary": green,
-  "success": #28a745,
-  "info": #17a2b8,
-  "warning": #ffc107,
-  "danger": #9c3333,
-  "bgColor": #f2f2f2,
-);
+// $theme-light-colors: (
+//   "primary": #740719,
+//   "default": #454555,
+//   "secondary": green,
+//   "success": #28a745,
+//   "info": #17a2b8,
+//   "warning": #ffc107,
+//   "danger": #9c3333,
+//   "bgColor": #f2f2f2,
+// );
 
-$theme-dark-colors: (
-  "primary": #740719,
-  "default": #c6c6da,
-  "secondary": green,
-  "success": #28a745,
-  "info": #17a2b8,
-  "warning": #ffc107,
-  "danger": #9c3333,
-  "bgColor": #010101,
-);
+// $theme-dark-colors: (
+//   "primary": #740719,
+//   "default": #c6c6da,
+//   "secondary": green,
+//   "success": #28a745,
+//   "info": #17a2b8,
+//   "warning": #ffc107,
+//   "danger": #9c3333,
+//   "bgColor": #151b20,
+// );
+$primary-color: #000000;
+$default-color: #c6c6da;
+$secondary-color: green;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #9c3333;
+$bg-color: #ffffff;
+$noti-color: #af1e0b;
+$text-color: #111111;
+$text-color-light: #ffffff;
+
+$layout-gap: 40px;
+$layout-width: 1170px;

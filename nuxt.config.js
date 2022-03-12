@@ -33,15 +33,15 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     "@nuxt/typescript-build",
-    // "@nuxtjs/style-resources",
+    "@nuxtjs/style-resources",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios"],
 
-  // styleResources: {
-  //   scss: ["~/assets/scss/*.scss"],
-  // },
+  styleResources: {
+    scss: ["./assets/css/*.scss"],
+  },
 
   axios: {
     // proxy: true
