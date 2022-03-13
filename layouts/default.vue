@@ -31,5 +31,6 @@ export default Vue.extend({
 main {
   padding-top: $layout-gap;
   padding-bottom: $layout-gap;
+  min-height: calc(100vh - ($header-height + $footer-height));
 }
 </style>

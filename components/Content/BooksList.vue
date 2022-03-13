@@ -1,11 +1,11 @@
 <template>
   <section>
-    <h2 class="section-title">All Books</h2>
+    <h2 class="section-title">สินค้าทั้งหมด</h2>
 
     <div class="controls-item">
-      <div>Filter:</div>
+      <div></div>
       <div>
-        <p>Total : {{ totalsPage }} Items</p>
+        <p>รายการหนังสือ : {{ totalsPage }} รายการ</p>
         <p />
       </div>
     </div>

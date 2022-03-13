@@ -4,10 +4,10 @@
       <table class="table-checkout">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Amount</th>
-            <th>Total</th>
+            <th>รายการ</th>
+            <th>ราคา</th>
+            <th>จำนวน</th>
+            <th>รวม</th>
           </tr>
         </thead>
         <tbody>
@@ -26,11 +26,21 @@
               <p>{{ item.qty }}</p>
             </td>
             <td>
-              <p>{{ (item.total).toFixed(2) }}</p>
+              <p>{{ item.total.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}</p>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="frame-total">
+        <p>
+          รวมทั้งหมด :
+          {{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") }}
+          บาท
+        </p>
+      </div>
+      <div class="frame-action">
+        <button class="btn btn-accent">สั่งซื้อสินค้า</button>
+      </div>
     </div>
     <div v-else>
       <p>Cart is empty</p>
@@ -44,15 +54,16 @@ import { mapGetters } from "vuex";
 export default Vue.extend({
   computed: {
     ...mapGetters({ selectedItems: "books/GET_SELECTED_ITEM" }),
+    ...mapGetters({ totalPrice: "books/GET_TOTAL_PRICE" }),
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .frame-checkout-list {
-  border: 1px solid $default-color;
   .table-checkout {
     width: 100%;
+    border: 1px solid $default-color;
     thead {
       width: 100%;
       th {
@@ -72,6 +83,14 @@ export default Vue.extend({
         }
       }
     }
+  }
+  .frame-total {
+    margin-top: 15px;
+    text-align: right;
+  }
+  .frame-action {
+    text-align: right;
+    padding-top: 40px;
   }
 }
 </style>

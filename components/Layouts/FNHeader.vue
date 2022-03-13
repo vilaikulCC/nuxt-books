@@ -15,14 +15,14 @@
           <nav class="header-menu">
             <ul class="menu-list">
               <li>
-                <NuxtLink to="/">Home</NuxtLink>
+                <NuxtLink to="/">หน้าหลัก</NuxtLink>
               </li>
             </ul>
           </nav>
           <NuxtLink to="/checkout" class="header-btn-icon btn-actions-cart">
             <font-awesome-icon icon="fa-solid fa-basket-shopping" />
-            <p v-show="selectedItems.length !== 0" class="isHasItem">
-              {{ selectedItems.length }}
+            <p v-show="countItems !== 0" class="isHasItem">
+              {{ countItems }}
             </p>
           </NuxtLink>
         </div>
@@ -39,24 +39,24 @@ import { SelectedItem } from "@/interface";
 export default Vue.extend({
   name: "FNHeader",
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    ...mapGetters({selectedItems: 'books/GET_SELECTED_ITEM'}),
-
+    ...mapGetters({ selectedItems: "books/GET_SELECTED_ITEM" }),
+    ...mapGetters({ countItems: "books/GET_COUNT_SELECTED_ITEM" }),
   },
+  methods: {},
 });
 </script>
 
 <style lang="scss" scoped>
 header {
   background-color: $primary-color;
-  max-height: 80px;
+  max-height: $header-height;
   .data-header {
     display: grid;
     grid-template-columns: auto auto;
-    height: 80px;
+    height: $header-height;
     align-items: center;
   }
   #site-logo {

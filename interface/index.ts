@@ -10,6 +10,7 @@ export interface Book {
 }
 
 export interface SelectedItem {
+  index: number;
   qty: number;
   total: number;
   book: Book;

@@ -14,7 +14,7 @@
         @click="addToCart(item)"
       >
         <font-awesome-icon icon="fa-solid fa-basket-shopping" />
-        Add to Cart
+        เพิ่มในตะกร้า
       </button>
       <button
         type="button"
@@ -22,7 +22,7 @@
         v-else-if="item.acf.status === 'outOfStock'"
         disabled
       >
-        <font-awesome-icon icon="fa-solid fa-basket-shopping" /> Out of stock
+        <font-awesome-icon icon="fa-solid fa-basket-shopping" /> สินค้าหมด
       </button>
       <!-- <a :href=""></a> -->
     </article>

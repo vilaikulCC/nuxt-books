@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="page-title">Checkout</h1>
+    <h1 class="page-title">ตะกร้าสินค้า</h1>
     <CheckoutList />
   </div>
 </template>

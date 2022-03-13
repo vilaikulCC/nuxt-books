@@ -17,9 +17,9 @@ export default Vue.extend({
 <style lang="scss" scoped>
 footer {
   background-color: $primary-color;
-  max-height: 60px;
+  max-height: $footer-height;
   .data-footer {
-    height: 60px;
+    height: $footer-height;
     display: flex;
     justify-content: center;
     align-items: center;
