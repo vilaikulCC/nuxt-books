@@ -1,23 +1,25 @@
 <template>
   <div class="grid-books">
-    <article v-for="(books, index) in items" :key="index" class="grid-item">
-      <img :src="books._embedded['wp:featuredmedia'][0].source_url" alt="" />
-      <h2>{{ books.title.rendered }}</h2>
-      <!-- <p v-html="books.excerpt.rendered" class="item-excerpt" /> -->
-      <p class="item-author">{{ books.acf.author }}</p>
-      <p class="item-price">{{ Number(books.acf.price).toFixed(2) }}</p>
+    <article v-for="(item, index) in items" :key="index" class="grid-item">
+      <img :src="item._embedded['wp:featuredmedia'][0].source_url" alt="" />
+      <h2>{{ item.title.rendered }}</h2>
+      <!-- <p v-html="item.excerpt.rendered" class="item-excerpt" /> -->
+      <p class="item-author">{{ item.acf.author }}</p>
+      <p class="item-price">{{ Number(item.acf.price).toFixed(2) }}</p>
 
       <button
         type="button"
         class="btn btn-default btn-add-to-cart"
-        v-if="books.acf.status !== 'outOfStock'"
+        v-if="item.acf.status !== 'outOfStock'"
+        @click="addToCart(item)"
       >
-        <font-awesome-icon icon="fa-solid fa-basket-shopping" /> Add to Cart
+        <font-awesome-icon icon="fa-solid fa-basket-shopping" />
+        Add to Cart
       </button>
       <button
         type="button"
         class="btn btn-default btn-add-to-cart"
-        v-else-if="books.acf.status === 'outOfStock'"
+        v-else-if="item.acf.status === 'outOfStock'"
         disabled
       >
         <font-awesome-icon icon="fa-solid fa-basket-shopping" /> Out of stock
@@ -28,6 +30,8 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import Vuex from "vuex";
+import { Book } from "~/interface";
 
 export default Vue.extend({
   props: {
@@ -35,10 +39,19 @@ export default Vue.extend({
       type: [],
     },
   },
+  methods: {
+    addToCart(item: any) {
+      let selectedBook = {
+        id: item.id,
+        title: item.title.rendered,
+        price: item.acf.price,
+      };
+      this.$store.dispatch("books/ADD_SELECTED_ITEM", selectedBook);
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>
-
 .grid-books {
   display: grid;
   grid-gap: 20px;

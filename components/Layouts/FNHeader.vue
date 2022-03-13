@@ -2,17 +2,28 @@
   <header>
     <div class="container">
       <div class="data-header">
-        <NuxtLink to="/"
-          ><img
-            :src="require(`~/assets/imgs/chompu-logo.svg`)"
-            alt=""
-            id="site-logo"
-        /></NuxtLink>
+        <div class="start">
+          <NuxtLink to="/"
+            ><img
+              :src="require(`~/assets/imgs/chompu-logo.svg`)"
+              alt=""
+              id="site-logo"
+          /></NuxtLink>
+        </div>
 
-        <div class="menu">
-          <NuxtLink to="/cart" class="btn-icon btn-actions-cart">
+        <div class="end">
+          <nav class="header-menu">
+            <ul class="menu-list">
+              <li>
+                <NuxtLink to="/">Home</NuxtLink>
+              </li>
+            </ul>
+          </nav>
+          <NuxtLink to="/checkout" class="header-btn-icon btn-actions-cart">
             <font-awesome-icon icon="fa-solid fa-basket-shopping" />
-            <p v-show="countItems !== 0" class="isHasItem">{{ countItems }}</p>
+            <p v-show="selectedItems.length !== 0" class="isHasItem">
+              {{ selectedItems.length }}
+            </p>
           </NuxtLink>
         </div>
       </div>
@@ -22,13 +33,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from "Vuex";
+import { SelectedItem } from "@/interface";
 
 export default Vue.extend({
   name: "FNHeader",
   data() {
     return {
-      countItems: 0 as Number,
     };
+  },
+  computed: {
+    ...mapGetters({selectedItems: 'books/GET_SELECTED_ITEM'}),
+
   },
 });
 </script>
@@ -46,13 +62,37 @@ header {
   #site-logo {
     height: 40px;
   }
-  .menu {
+  .end {
     justify-self: end;
-    .btn-icon {
+    display: flex;
+    color: $default-color;
+    a {
+      color: $menu-link-color;
+      &:hover {
+        color: $menu-link-hover-color;
+      }
+    }
+    nav {
+      ul {
+        li {
+          list-style: none;
+          a {
+            text-decoration: none;
+            padding-left: $menu-item-padding;
+            padding-right: $menu-item-padding;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .header-btn-icon {
       background: transparent;
-      color: $default-color;
       border: 0;
       font-size: 18px;
+      &:first-of-type {
+        margin-left: 15px;
+      }
       &.btn-actions-cart {
         position: relative;
         p.isHasItem {

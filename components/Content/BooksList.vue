@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="page-title">All Books</h1>
+  <section>
+    <h2 class="section-title">All Books</h2>
 
     <div class="controls-item">
       <div>Filter:</div>
@@ -11,14 +11,12 @@
     </div>
 
     <BooksItem :items="booksList" />
-
-  </div>
+  </section>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
-import { Books } from "@/interface";
 import BooksItem from "@/components/Content/BooksItems.vue";
 
 const baseURL = "http://booksapi.vilaikul.com/wp-json/wp/v2/";
@@ -29,7 +27,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      booksList: [] as Books[],
+      booksList: [],
       currentPage: 1 as Number,
       totalsPage: 0 as Number,
       showPages: 15 as Number,
@@ -63,7 +61,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    // this.fetchTotalPages();
+    this.fetchTotalPages();
     this.fetchBookslist();
   },
 });

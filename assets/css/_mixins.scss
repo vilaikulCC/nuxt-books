@@ -8,14 +8,17 @@
 
 @mixin btn {
   border: 0;
-  background-color: $default-color;
+  background-color: $link-color;
   padding: 10px 15px;
   font-size: 16px;
   font-family: "Athiti", sans-serif;
   cursor: pointer;
 
+  &:hover {
+    background-color: $link-hover-color;
+  }
   &:disabled {
-    background-color: lighten($default-color , 15%);
+    background-color: lighten($link-color, 15%);
     cursor: not-allowed;
   }
 }
