@@ -52,6 +52,14 @@
                 }}
               </p>
             </td>
+            <td>
+              <button
+                class="btn btn-control btn-control-qty"
+                @click="removeSelectedItem(item.book.id)"
+              >
+                <font-awesome-icon icon="fa-solid fa-xmark" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -89,6 +97,9 @@ export default Vue.extend({
       console.log(`increaseQty ${id}`);
       this.$store.dispatch("books/INCREASE_QTY_SELECTED_ITEM", id);
     },
+    removeSelectedItem(id: number) {
+      this.$store.dispatch("books/REMOVE_SELECTED_ITEM", id)
+    }
   },
 });
 </script>

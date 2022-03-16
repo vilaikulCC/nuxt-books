@@ -38,7 +38,7 @@ const BooksModule: Module<RootState, any> = {
       Vue.delete(state.selectedItems, index);
     },
     SET_COUNT_SELECTED_ITEM(state, amount) {
-      return state.countItem = state.countItem + amount;
+      return (state.countItem = state.countItem + amount);
     },
     SET_TOTAL_PRICE(state) {
       state.total = state.selectedItems.reduce((sum, i) => sum + i.total, 0);
@@ -115,6 +115,14 @@ const BooksModule: Module<RootState, any> = {
       }
       context.commit("SET_TOTAL_PRICE");
       context.commit("SET_COUNT_SELECTED_ITEM", -1);
+    },
+    REMOVE_SELECTED_ITEM(context, id) {
+      const index = context.state.selectedItems.findIndex(
+        (i) => i.book.id === id
+      );
+      const oldData = context.state.selectedItems[index];
+      context.commit("SET_REMOVE_SELECTED_ITEM", index);
+      context.commit("SET_COUNT_SELECTED_ITEM", -oldData.qty);
     },
   },
 };
