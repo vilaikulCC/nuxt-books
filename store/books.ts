@@ -123,6 +123,7 @@ const BooksModule: Module<RootState, any> = {
       const oldData = context.state.selectedItems[index];
       context.commit("SET_REMOVE_SELECTED_ITEM", index);
       context.commit("SET_COUNT_SELECTED_ITEM", -oldData.qty);
+      context.commit("SET_TOTAL_PRICE");
     },
   },
 };
