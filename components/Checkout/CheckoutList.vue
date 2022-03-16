@@ -8,6 +8,7 @@
             <th>ราคา</th>
             <th>จำนวน</th>
             <th>รวม</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +55,7 @@
             </td>
             <td>
               <button
-                class="btn btn-control btn-control-qty"
+                class="btn btn-control btn-delete-row"
                 @click="removeSelectedItem(item.book.id)"
               >
                 <font-awesome-icon icon="fa-solid fa-xmark" />
@@ -98,8 +99,8 @@ export default Vue.extend({
       this.$store.dispatch("books/INCREASE_QTY_SELECTED_ITEM", id);
     },
     removeSelectedItem(id: number) {
-      this.$store.dispatch("books/REMOVE_SELECTED_ITEM", id)
-    }
+      this.$store.dispatch("books/REMOVE_SELECTED_ITEM", id);
+    },
   },
 });
 </script>
@@ -112,10 +113,18 @@ export default Vue.extend({
     thead {
       width: 100%;
       th {
-        width: 25%;
         padding: 10px;
         &:first-child {
           text-align: left;
+          width: 40%;
+        }
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+          width: 18%;
+        }
+        &:last-child {
+          width: 6%;
         }
       }
     }
@@ -144,6 +153,17 @@ export default Vue.extend({
           border-radius: 30px;
           padding: 0;
           margin: 0 5px;
+        }
+        .btn-delete-row {
+          font-size: 18px;
+          width: 40px;
+          height: 40px;
+          padding: 0;
+          background-color: transparent;
+          color: $link-color;
+          &:hover {
+            color: $link-hover-color;
+          }
         }
       }
     }
