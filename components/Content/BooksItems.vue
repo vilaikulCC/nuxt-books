@@ -60,6 +60,7 @@ export default Vue.extend({
 
   .grid-item {
     background-color: #ffffff;
+    text-align: center;
     h2 {
       text-align: center;
       padding: 10px 20px 10px;
@@ -90,6 +91,19 @@ export default Vue.extend({
     }
     .btn-add-to-cart:disabled {
     }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+}
+@media screen and (max-width: 900px) {
+  .grid-books {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .grid-books {
+    grid-template-columns: 1fr;
   }
 }
 </style>
