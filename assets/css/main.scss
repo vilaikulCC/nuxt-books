@@ -13,10 +13,20 @@ body {
 }
 
 .container {
-  width: $layout-width;
+  max-width: $layout-width;
   display: block;
   margin: 0 auto;
   position: relative;
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    padding-left: $layout-container-gap;
+    padding-right: $layout-container-gap;
+  }
+}
+@media screen and (max-width: 900px) {
+}
+@media screen and (max-width: 600px) {
 }
 
 .btn {
