@@ -37,8 +37,8 @@ const BooksModule: Module<RootState, any> = {
     SET_REMOVE_SELECTED_ITEM(state, index) {
       Vue.delete(state.selectedItems, index);
     },
-    SET_COUNT_SELECTED_ITEM(state) {
-      state.countItem++;
+    SET_COUNT_SELECTED_ITEM(state, amount) {
+      return state.countItem = state.countItem + amount;
     },
     SET_TOTAL_PRICE(state) {
       state.total = state.selectedItems.reduce((sum, i) => sum + i.total, 0);
@@ -72,7 +72,7 @@ const BooksModule: Module<RootState, any> = {
         context.commit("SET_FIRST_QTY_SELECTED_ITEM", setData);
       }
       context.commit("SET_TOTAL_PRICE");
-      context.commit("SET_COUNT_SELECTED_ITEM");
+      context.commit("SET_COUNT_SELECTED_ITEM", 1);
     },
     INCREASE_QTY_SELECTED_ITEM(context, id) {
       const index = context.state.selectedItems.findIndex(
@@ -91,6 +91,7 @@ const BooksModule: Module<RootState, any> = {
       });
 
       context.commit("SET_TOTAL_PRICE");
+      context.commit("SET_COUNT_SELECTED_ITEM", 1);
     },
     DECREASE_QTY_SELECTED_ITEM(context, id) {
       const index = context.state.selectedItems.findIndex(
@@ -113,6 +114,7 @@ const BooksModule: Module<RootState, any> = {
         context.commit("SET_REMOVE_SELECTED_ITEM", index);
       }
       context.commit("SET_TOTAL_PRICE");
+      context.commit("SET_COUNT_SELECTED_ITEM", -1);
     },
   },
 };
