@@ -13,10 +13,10 @@ import Vue from "vue";
 import FNHeader from "@/components/Layouts/FNHeader.vue";
 import FNFooter from "@/components/Layouts/FNFooter.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping, faPlus, faMinus  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faBasketShopping);
+library.add(faBasketShopping, faPlus, faMinus);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 export default Vue.extend({

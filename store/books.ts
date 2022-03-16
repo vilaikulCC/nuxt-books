@@ -34,6 +34,9 @@ const BooksModule: Module<RootState, any> = {
       const { index, ...other } = data;
       Vue.set(state.selectedItems, index, other);
     },
+    SET_REMOVE_SELECTED_ITEM(state, index) {
+      Vue.delete(state.selectedItems, index);
+    },
     SET_COUNT_SELECTED_ITEM(state) {
       state.countItem++;
     },
@@ -51,6 +54,7 @@ const BooksModule: Module<RootState, any> = {
         const oldData = context.state.selectedItems[index];
         const increaseData = {
           qty: oldData.qty + 1,
+          originalPrice: data.price,
           total: oldData.total + data.price,
           book: data,
         };
@@ -61,6 +65,7 @@ const BooksModule: Module<RootState, any> = {
       } else {
         const setData = {
           qty: 1,
+          originalPrice: data.price,
           total: data.price,
           book: data,
         };
@@ -68,6 +73,46 @@ const BooksModule: Module<RootState, any> = {
       }
       context.commit("SET_TOTAL_PRICE");
       context.commit("SET_COUNT_SELECTED_ITEM");
+    },
+    INCREASE_QTY_SELECTED_ITEM(context, id) {
+      const index = context.state.selectedItems.findIndex(
+        (i) => i.book.id === id
+      );
+      const oldData = context.state.selectedItems[index];
+      const increaseData = {
+        qty: oldData.qty + 1,
+        originalPrice: oldData.originalPrice,
+        total: oldData.total + oldData.originalPrice,
+        book: oldData.book,
+      };
+      context.commit("SET_INCREASE_QTY_SELECTED_ITEM", {
+        index,
+        ...increaseData,
+      });
+
+      context.commit("SET_TOTAL_PRICE");
+    },
+    DECREASE_QTY_SELECTED_ITEM(context, id) {
+      const index = context.state.selectedItems.findIndex(
+        (i) => i.book.id === id
+      );
+      const oldData = context.state.selectedItems[index];
+
+      if (oldData.qty > 1) {
+        const decreaseData = {
+          qty: oldData.qty - 1,
+          originalPrice: oldData.originalPrice,
+          total: oldData.total - oldData.originalPrice,
+          book: oldData.book,
+        };
+        context.commit("SET_INCREASE_QTY_SELECTED_ITEM", {
+          index,
+          ...decreaseData,
+        });
+      } else {
+        context.commit("SET_REMOVE_SELECTED_ITEM", index);
+      }
+      context.commit("SET_TOTAL_PRICE");
     },
   },
 };
