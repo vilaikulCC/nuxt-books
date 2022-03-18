@@ -1,69 +1,63 @@
 <template>
-  <div>
+  <section>
     <div v-if="selectedItems.length !== 0" class="frame-checkout-list">
-      <table class="table-checkout">
-        <thead>
-          <tr>
-            <th>รายการ</th>
-            <th>ราคา</th>
-            <th>จำนวน</th>
-            <th>รวม</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(item, index) in selectedItems"
-            :key="index"
-            class="grid-checkout-item"
+      <div class="grid-checkout">
+        <div class="grid-checkout-header">
+          <div>รายการ</div>
+          <div>ราคา</div>
+          <div class="text-center">จำนวน</div>
+          <div>รวม</div>
+        </div>
+        <div
+          v-for="(item, index) in selectedItems"
+          :key="index"
+          class="grid-checkout-item"
+        >
+          <img :src="item.book.imageURL" alt="" class="grid-item-thumbnail" />
+          <p class="grid-item-title">{{ item.book.title }}</p>
+
+          <p class="grid-item-price">
+            {{
+              item.book.price
+                .toFixed(2)
+                .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+            }}
+          </p>
+          <div class="grid-item-control text-center">
+            <button
+              class="btn btn-control btn-control-qty"
+              @click="decreaseQty(item.book.id)"
+            >
+              <font-awesome-icon icon="fa-solid fa-minus" />
+            </button>
+            <input
+              type="number"
+              :value="item.qty"
+              class="inp-qty"
+              min="0"
+              max="99"
+            />
+            <button
+              class="btn btn-control btn-control-qty"
+              @click="increaseQty(item.book.id)"
+            >
+              <font-awesome-icon icon="fa-solid fa-plus" />
+            </button>
+          </div>
+          <p class="grid-item-qtytotal">
+            {{
+              item.total.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+            }}
+          </p>
+          <button
+            class="btn btn-control btn-delete-row grid-item-remove"
+            @click="removeSelectedItem(item.book.id)"
           >
-            <td>
-              <p>{{ item.book.title }}</p>
-            </td>
-            <td>
-              <p>{{ item.book.price }}</p>
-            </td>
-            <td>
-              <button
-                class="btn btn-control btn-control-qty"
-                @click="decreaseQty(item.book.id)"
-              >
-                <font-awesome-icon icon="fa-solid fa-minus" />
-              </button>
-              <input
-                type="number"
-                :value="item.qty"
-                class="inp-qty"
-                min="0"
-                max="99"
-              />
-              <button
-                class="btn btn-control btn-control-qty"
-                @click="increaseQty(item.book.id)"
-              >
-                <font-awesome-icon icon="fa-solid fa-plus" />
-              </button>
-            </td>
-            <td>
-              <p>
-                {{
-                  item.total
-                    .toFixed(2)
-                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-                }}
-              </p>
-            </td>
-            <td>
-              <button
-                class="btn btn-control btn-delete-row"
-                @click="removeSelectedItem(item.book.id)"
-              >
-                <font-awesome-icon icon="fa-solid fa-xmark" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <font-awesome-icon icon="fa-solid fa-xmark" />
+          </button>
+        </div>
+      </div>
+
       <div class="frame-total">
         <p>
           รวมทั้งหมด :
@@ -78,7 +72,7 @@
     <div v-else class="frame-empty-checkout">
       <p>Cart is empty</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -107,63 +101,59 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .frame-checkout-list {
-  .table-checkout {
-    width: 100%;
+  .grid-checkout {
     border: 1px solid $default-color;
-    thead {
+    width: 100%;
+    padding: 10px 20px;
+    .grid-checkout-header {
+      display: grid;
+      grid-template-columns: auto 100px 200px 120px 0px;
+      gap: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       width: 100%;
-      th {
-        padding: 10px;
-        &:first-child {
-          text-align: left;
-          width: 40%;
-        }
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-          width: 18%;
-        }
-        &:last-child {
-          width: 6%;
+      border-bottom: 1px solid $default-color;
+      margin-bottom: 15px;
+    }
+    .grid-checkout-item {
+      display: grid;
+      grid-template-columns: 100px auto 100px 200px 100px 20px;
+      column-gap: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+      align-items: center;
+      .grid-item-thumbnail {
+        width: 100px;
+        height: 100px;
+      }
+
+      input[type="number"].inp-qty {
+        width: 45px;
+        text-align: center;
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
         }
       }
-    }
-    tbody {
-      td {
-        text-align: center;
-        padding: 10px;
-        &:first-child {
-          text-align: left;
-        }
 
-        input[type="number"].inp-qty {
-          width: 45px;
-          text-align: center;
-          -moz-appearance: textfield;
-          &::-webkit-outer-spin-button,
-          &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-          }
-        }
-
-        .btn-control-qty {
-          font-size: 12px;
-          width: 30px;
-          height: 30px;
-          border-radius: 30px;
-          padding: 0;
-          margin: 0 5px;
-        }
-        .btn-delete-row {
-          font-size: 18px;
-          width: 40px;
-          height: 40px;
-          padding: 0;
-          background-color: transparent;
-          color: $link-color;
-          &:hover {
-            color: $link-hover-color;
-          }
+      .btn-control-qty {
+        font-size: 12px;
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        padding: 0;
+        margin: 0 5px;
+      }
+      .btn-delete-row {
+        font-size: 18px;
+        width: 30px;
+        padding: 0;
+        background-color: transparent;
+        color: $link-color;
+        &:hover {
+          color: $link-hover-color;
         }
       }
     }
@@ -181,5 +171,47 @@ export default Vue.extend({
   border: 1px solid $default-color;
   text-align: center;
   padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .frame-checkout-list {
+    .grid-checkout {
+      .grid-checkout-header {
+        display: none;
+      }
+      .grid-checkout-item {
+        width: 100%;
+        display: grid;
+        grid-template-areas:
+          "80px titleArea removeArea"
+          "priceArea controlArea qtytotalArea";
+        grid-template-columns: 80px auto auto;
+        &:not(:last-child) {
+          border-bottom: 1px solid $default-color;
+        }
+        .grid-item-thumbnail {
+          width: 80px;
+          height: 80px;
+        }
+        .grid-item-title {
+          grid-area: titleArea;
+        }
+        .grid-item-price {
+          grid-area: priceArea;
+        }
+        .grid-item-control {
+          grid-area: controlArea;
+        }
+        .grid-item-qtytotal {
+          grid-area: qtytotalArea;
+          justify-self: end;
+        }
+        .grid-item-remove {
+          grid-area: removeArea;
+          justify-self: end;
+        }
+      }
+    }
+  }
 }
 </style>

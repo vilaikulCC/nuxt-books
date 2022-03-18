@@ -6,7 +6,7 @@ export interface Book {
   content: string;
   price: string;
   status: string;
-  image: string;
+  imageURL: string;
 }
 
 export interface SelectedItem {

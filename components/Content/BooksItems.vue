@@ -45,6 +45,7 @@ export default Vue.extend({
         id: item.id,
         title: item.title.rendered,
         price: item.acf.price,
+        imageURL: item._embedded['wp:featuredmedia'][0].source_url,
       };
       this.$store.dispatch("books/ADD_SELECTED_ITEM", selectedBook);
     },

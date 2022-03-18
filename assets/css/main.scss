@@ -44,6 +44,10 @@ body {
   }
 }
 
+.text-center {
+  text-align: center;
+}
+
 .btn-accent {
   background-color: $accent-color;
   color: #ffffff;
@@ -79,3 +83,8 @@ input[type="number"]  {
   border-radius: 0;
   border: 1px solid $input-border-color;
 }
+
+.table-responsive {
+  overflow-x: auto;
+}
+
