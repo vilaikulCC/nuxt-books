@@ -1,6 +1,6 @@
 <template>
-  <div class="grid-books">
-    <article v-for="(item, index) in items" :key="index" class="grid-item">
+  <section class="grid-books">
+    <div v-for="(item, index) in items" :key="index" class="grid-item">
       <img :src="item._embedded['wp:featuredmedia'][0].source_url" alt="" />
       <h2>{{ item.title.rendered }}</h2>
       <!-- <p v-html="item.excerpt.rendered" class="item-excerpt" /> -->
@@ -25,8 +25,8 @@
         <font-awesome-icon icon="fa-solid fa-basket-shopping" /> สินค้าหมด
       </button>
       <!-- <a :href=""></a> -->
-    </article>
-  </div>
+    </div>
+  </section>
 </template>
 <script lang="ts">
 import Vue from "vue";

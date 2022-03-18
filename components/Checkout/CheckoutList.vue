@@ -75,7 +75,7 @@
         <button class="btn btn-accent">สั่งซื้อสินค้า</button>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="frame-empty-checkout">
       <p>Cart is empty</p>
     </div>
   </div>
@@ -176,5 +176,10 @@ export default Vue.extend({
     text-align: right;
     padding-top: 40px;
   }
+}
+.frame-empty-checkout {
+  border: 1px solid $default-color;
+  text-align: center;
+  padding: 20px;
 }
 </style>
