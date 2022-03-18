@@ -184,7 +184,7 @@ export default Vue.extend({
         display: grid;
         grid-template-areas:
           "80px titleArea removeArea"
-          "priceArea controlArea qtytotalArea";
+          "priceArea controlArea controlArea";
         grid-template-columns: 80px auto auto;
         &:not(:last-child) {
           border-bottom: 1px solid $default-color;
@@ -195,20 +195,23 @@ export default Vue.extend({
         }
         .grid-item-title {
           grid-area: titleArea;
+          align-self: start;
         }
         .grid-item-price {
           grid-area: priceArea;
         }
         .grid-item-control {
           grid-area: controlArea;
+          justify-self: end;
         }
         .grid-item-qtytotal {
           grid-area: qtytotalArea;
-          justify-self: end;
+          display: none;
         }
         .grid-item-remove {
           grid-area: removeArea;
           justify-self: end;
+          align-self: start;
         }
       }
     }
