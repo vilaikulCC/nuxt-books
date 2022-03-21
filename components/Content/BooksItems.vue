@@ -1,9 +1,12 @@
 <template>
   <section class="grid-books">
     <div v-for="(item, index) in items" :key="index" class="grid-item">
-      <img :src="item._embedded['wp:featuredmedia'][0].source_url" alt="" />
+      <figure>
+        <nuxt-link :to="`books/${item.slug}`">
+          <img :src="item._embedded['wp:featuredmedia'][0].source_url" alt="" />
+        </nuxt-link>
+      </figure>
       <h2>{{ item.title.rendered }}</h2>
-      <!-- <p v-html="item.excerpt.rendered" class="item-excerpt" /> -->
       <p class="item-author">{{ item.acf.author }}</p>
       <p class="item-price">{{ Number(item.acf.price).toFixed(2) }}</p>
 
@@ -24,14 +27,11 @@
       >
         <font-awesome-icon icon="fa-solid fa-basket-shopping" /> สินค้าหมด
       </button>
-      <!-- <a :href=""></a> -->
     </div>
   </section>
 </template>
 <script lang="ts">
 import Vue from "vue";
-import Vuex from "vuex";
-import { Book } from "~/interface";
 
 export default Vue.extend({
   props: {
@@ -45,7 +45,7 @@ export default Vue.extend({
         id: item.id,
         title: item.title.rendered,
         price: item.acf.price,
-        imageURL: item._embedded['wp:featuredmedia'][0].source_url,
+        imageURL: item._embedded["wp:featuredmedia"][0].source_url,
       };
       this.$store.dispatch("books/ADD_SELECTED_ITEM", selectedBook);
     },
@@ -89,8 +89,6 @@ export default Vue.extend({
     .btn-add-to-cart {
       display: block;
       margin: 20px auto;
-    }
-    .btn-add-to-cart:disabled {
     }
   }
 }
