@@ -1,21 +1,21 @@
 <template>
   <div class="container">
-    <h1>{{ this.content.title.rendered }}</h1>
+    <h1>{{ post.title.rendered }}</h1>
     <figure>
       <img
-        :src="this.content._embedded['wp:featuredmedia'][0].source_url"
+        :src="post._embedded['wp:featuredmedia'][0].source_url"
         alt=""
       />
     </figure>
-    <p v-html="this.content.content.rendered" class="item-excerpt" />
+    <p v-html="post.content.rendered" class="item-excerpt" />
 
-    <p class="item-author">{{ this.content.acf.author }}</p>
-    <p class="item-price">{{ Number(this.content.acf.price).toFixed(2) }}</p>
+    <p class="item-author">{{ post.acf.author }}</p>
+    <p class="item-price">{{ Number(post.acf.price).toFixed(2) }}</p>
     <button
       type="button"
       class="btn btn-default btn-add-to-cart"
-      v-if="this.content.acf.status !== 'outOfStock'"
-      @click="addToCart(this.content)"
+      v-if="post.acf.status !== 'outOfStock'"
+      @click="addToCart(post)"
     >
       <font-awesome-icon icon="fa-solid fa-basket-shopping" />
       เพิ่มในตะกร้า
@@ -23,7 +23,7 @@
     <button
       type="button"
       class="btn btn-default btn-add-to-cart"
-      v-else-if="this.content.acf.status === 'outOfStock'"
+      v-else-if="post.acf.status === 'outOfStock'"
       disabled
     >
       <font-awesome-icon icon="fa-solid fa-basket-shopping" /> สินค้าหมด
@@ -34,20 +34,24 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import https from "https";
 
 const baseURL = "http://booksapi.vilaikul.com/wp-json/wp/v2/";
 export default Vue.extend({
+
   async asyncData({ params }) {
+    const agent = new https.Agent({
+      rejectUnauthorized: false,
+    });
     const slug = params.slug;
-    const content = await axios
-      .get(`${baseURL}books?_embed&slug=${slug}`)
+    const post = await axios
+      .get(`${baseURL}books?_embed&slug=${slug}`, { httpsAgent: agent })
       .then((response) => response.data[0]);
-    console.log(content);
-    return { content };
+    return { post };
   },
   methods: {
     addToCart(item: any) {
-      console.log(`item ${item}`)
+      console.log(`item ${item}`);
       let selectedBook = {
         id: item.id,
         title: item.title.rendered,
