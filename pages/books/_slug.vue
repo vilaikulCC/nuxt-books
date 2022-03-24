@@ -2,10 +2,7 @@
   <div class="container">
     <h1>{{ post.title.rendered }}</h1>
     <figure>
-      <img
-        :src="post._embedded['wp:featuredmedia'][0].source_url"
-        alt=""
-      />
+      <img :src="post._embedded['wp:featuredmedia'][0].source_url" alt="" />
     </figure>
     <p v-html="post.content.rendered" class="item-excerpt" />
 
@@ -36,9 +33,8 @@ import Vue from "vue";
 import axios from "axios";
 import https from "https";
 
-const baseURL = "http://booksapi.vilaikul.com/wp-json/wp/v2/";
+const baseURL = process.env.baseUrl;
 export default Vue.extend({
-
   async asyncData({ params }) {
     const agent = new https.Agent({
       rejectUnauthorized: false,

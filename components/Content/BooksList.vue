@@ -19,7 +19,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import BooksItem from "@/components/Content/BooksItems.vue";
 
-const baseURL = "http://booksapi.vilaikul.com/wp-json/wp/v2/";
+const baseUrl = process.env.baseUrl;
 export default Vue.extend({
   name: "BooksList",
   components: {
@@ -41,7 +41,7 @@ export default Vue.extend({
     async fetchTotalPages() {
       this.loading = true;
       const fetchedTotalPages = await axios
-        .get(`${baseURL}books`)
+        .get(`${baseUrl}books`)
         .then((response) => {
           this.totalsPage = response.headers["x-wp-total"];
           this.loading = false;
@@ -51,7 +51,7 @@ export default Vue.extend({
       this.loading = true;
       const fetchedBooksList = await axios
         .get(
-          `${baseURL}books?_embed&per_page=${this.showPages}&orderby=date&order=desc&page=${this.currentPage}`
+          `${baseUrl}books?_embed&per_page=${this.showPages}&orderby=date&order=desc&page=${this.currentPage}`
         )
         .then((response) => {
           console.log(response.data);

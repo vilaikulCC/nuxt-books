@@ -1,4 +1,7 @@
 export default {
+  env: {
+    baseUrl: process.env.BASE_URL || "http://booksapi.vilaikul.com/wp-json/wp/v2/",
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "nuxt-books",
@@ -44,7 +47,7 @@ export default {
   },
 
   axios: {
-    // proxy: true
+    proxy: true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
