@@ -90,7 +90,8 @@ export default Vue.extend({
       display: grid;
       grid-template-columns: 30% 70%;
       column-gap: 30px;
-      padding: 40px;
+      padding-top: 40px;
+      padding-bottom: 40px;
     }
   }
 
@@ -106,6 +107,7 @@ export default Vue.extend({
   }
 
   .grid-box-2 {
+    width: 100%;
     .item-author {
       margin-bottom: 20px;
     }
