@@ -43,7 +43,7 @@ export default Vue.extend({
     async fetchTotalItems() {
       this.loading = true;
       const fetchedTotalPages = await axios
-        .get(`${baseUrl}books`)
+        .get(`${baseURL}books`)
         .then((response) => {
           this.totalItems = response.headers["x-wp-total"];
           this.loading = false;
