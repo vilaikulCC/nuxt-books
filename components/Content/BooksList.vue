@@ -11,6 +11,11 @@
     </div>
 
     <BooksItem :items="booksList" />
+    <BooksPagination
+      :totalPage="totalPage"
+      :currentPage="currentPage"
+      @pageChanged="onPageChange"
+    />
   </section>
 </template>
 <script lang="ts">
@@ -19,20 +24,22 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import https from "https";
 import BooksItem from "@/components/Content/BooksItems.vue";
+import BooksPagination from "@/components/Content/BooksPagination.vue";
 
 const baseURL = process.env.baseUrl;
 export default Vue.extend({
   name: "BooksList",
   components: {
     BooksItem,
+    BooksPagination,
   },
   data() {
     return {
       booksList: [],
-      totalItems: 0 as Number,
+      totalItems: 0 as number,
       currentPage: 1 as Number,
       totalPage: 0 as Number,
-      showPages: 15 as Number,
+      showPages: 15 as number,
       loading: false as Boolean,
     };
   },
@@ -58,9 +65,14 @@ export default Vue.extend({
       const fetchedTotalPages = await axios
         .get(`${baseURL}books`, { httpsAgent: agent })
         .then((response) => {
-          this.totalPage = response.headers["x-wp-totalpages"];
+
+          this.totalPage = Math.ceil(this.totalItems / this.showPages);
           this.loading = false;
         });
+    },
+    async onPageChange(page: Number) {
+      this.currentPage = page;
+      this.fetchBookslist();
     },
     async fetchBookslist() {
       this.loading = true;
@@ -74,7 +86,6 @@ export default Vue.extend({
           { httpsAgent: agent }
         )
         .then((response) => {
-          console.log(response.data);
           this.booksList = response.data;
         });
       this.loading = false;
@@ -82,8 +93,8 @@ export default Vue.extend({
   },
   mounted() {
     this.fetchTotalItems();
+    this.fetchTotalPages();
     this.fetchBookslist();
-
   },
 });
 </script>
