@@ -5,7 +5,7 @@
     <div class="controls-item">
       <div></div>
       <div>
-        <p>รายการหนังสือ : {{ totalsPage }} รายการ</p>
+        <p>รายการหนังสือ : {{ totalItems }} รายการ</p>
         <p />
       </div>
     </div>
@@ -28,22 +28,32 @@ export default Vue.extend({
   data() {
     return {
       booksList: [],
+      totalItems: 0 as Number,
       currentPage: 1 as Number,
-      totalsPage: 0 as Number,
+      totalPage: 0 as Number,
       showPages: 15 as Number,
       loading: false as Boolean,
     };
   },
   computed: {
-    // ...mapGetters({totalsPage: 'getTotalPages'}),
+    // ...mapGetters({totalPage: 'getTotalPages'}),
   },
   methods: {
+    async fetchTotalItems() {
+      this.loading = true;
+      const fetchedTotalPages = await axios
+        .get(`${baseUrl}books`)
+        .then((response) => {
+          this.totalItems = response.headers["x-wp-total"];
+          this.loading = false;
+        });
+    },
     async fetchTotalPages() {
       this.loading = true;
       const fetchedTotalPages = await axios
         .get(`${baseUrl}books`)
         .then((response) => {
-          this.totalsPage = response.headers["x-wp-total"];
+          this.totalPage = response.headers["x-wp-totalpages"];
           this.loading = false;
         });
     },
@@ -61,8 +71,9 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.fetchTotalPages();
+    this.fetchTotalItems();
     this.fetchBookslist();
+
   },
 });
 </script>
