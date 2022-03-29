@@ -1,6 +1,6 @@
 export default {
   env: {
-    baseUrl: process.env.BASE_URL || "http://booksapi.vilaikul.com/wp-json/wp/v2/",
+    baseUrl: process.env.BASE_URL || "https://booksapi.vilaikul.com/wp-json/wp/v2/",
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

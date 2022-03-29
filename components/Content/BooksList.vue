@@ -17,9 +17,10 @@
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
+import https from "https";
 import BooksItem from "@/components/Content/BooksItems.vue";
 
-const baseUrl = process.env.baseUrl;
+const baseURL = process.env.baseUrl;
 export default Vue.extend({
   name: "BooksList",
   components: {
@@ -50,8 +51,12 @@ export default Vue.extend({
     },
     async fetchTotalPages() {
       this.loading = true;
+
+      const agent = new https.Agent({
+        rejectUnauthorized: false,
+      });
       const fetchedTotalPages = await axios
-        .get(`${baseUrl}books`)
+        .get(`${baseURL}books`, { httpsAgent: agent })
         .then((response) => {
           this.totalPage = response.headers["x-wp-totalpages"];
           this.loading = false;
@@ -59,9 +64,14 @@ export default Vue.extend({
     },
     async fetchBookslist() {
       this.loading = true;
+
+      const agent = new https.Agent({
+        rejectUnauthorized: false,
+      });
       const fetchedBooksList = await axios
         .get(
-          `${baseUrl}books?_embed&per_page=${this.showPages}&orderby=date&order=desc&page=${this.currentPage}`
+          `${baseURL}books?_embed&per_page=${this.showPages}&orderby=date&order=desc&page=${this.currentPage}`,
+          { httpsAgent: agent }
         )
         .then((response) => {
           console.log(response.data);
