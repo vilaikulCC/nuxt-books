@@ -6,11 +6,17 @@ interface RootState {
   selectedItems: SelectedItem[];
   total: number;
   countItem: number;
+  isShowModalConfirm: Boolean;
 }
 
 const BooksModule: Module<RootState, any> = {
   namespaced: true,
-  state: { selectedItems: [] as SelectedItem[], total: 0, countItem: 0 },
+  state: {
+    selectedItems: [] as SelectedItem[],
+    total: 0,
+    countItem: 0,
+    isShowModalConfirm: false,
+  },
   getters: {
     GET_SELECTED_ITEM(state) {
       return state.selectedItems;
@@ -43,6 +49,9 @@ const BooksModule: Module<RootState, any> = {
     SET_TOTAL_PRICE(state) {
       state.total = state.selectedItems.reduce((sum, i) => sum + i.total, 0);
     },
+    SET_SHOW_MODAL_CONFIRM(state, status) {
+      state.isShowModalConfirm = status;
+    }
   },
   actions: {
     ADD_SELECTED_ITEM(context, data: Book) {
@@ -117,6 +126,7 @@ const BooksModule: Module<RootState, any> = {
       context.commit("SET_COUNT_SELECTED_ITEM", -1);
     },
     REMOVE_SELECTED_ITEM(context, id) {
+
       const index = context.state.selectedItems.findIndex(
         (i) => i.book.id === id
       );

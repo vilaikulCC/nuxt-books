@@ -10,6 +10,7 @@ body {
   color: $text-color;
   font-size: 18px;
   font-family: "Athiti", sans-serif;
+  position: relative;
 }
 
 .container {
@@ -32,10 +33,24 @@ body {
 .btn {
   @include btn;
 }
-
 .btn-default {
+  border: 1px solid $link-color;
   background-color: $link-color;
   &:hover {
+    border: 1px solid $link-hover-color;
+    background-color: $link-hover-color;
+  }
+  &:disabled {
+    background-color: lighten($link-color, 15%);
+    cursor: not-allowed;
+  }
+}
+
+.btn-outline-default {
+  border: 1px solid $link-color;
+  background-color: transparent;
+  &:hover {
+    border: 1px solid $link-hover-color;
     background-color: $link-hover-color;
   }
   &:disabled {
@@ -78,7 +93,7 @@ body {
 }
 
 input[type="text"],
-input[type="number"]  {
+input[type="number"] {
   height: 35px;
   border-radius: 0;
   border: 1px solid $input-border-color;
@@ -87,4 +102,3 @@ input[type="number"]  {
 .table-responsive {
   overflow-x: auto;
 }
-

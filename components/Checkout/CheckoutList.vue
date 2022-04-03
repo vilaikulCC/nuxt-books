@@ -72,13 +72,29 @@
     <div v-else class="frame-empty-checkout">
       <p>Cart is empty</p>
     </div>
+    <modal-confirm
+      :isShowModal="isShowConfirmModal"
+      :modalContent="confirmRemoveItems"
+    />
   </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters } from "vuex";
+import ModalConfirm from "../Modal/ModalConfirm.vue";
 export default Vue.extend({
+  data() {
+    return {
+      isShowConfirmModal: false,
+      confirmRemoveItems: {
+        title: "Confirm",
+        description: "Are you sure to remove this items?",
+        icon: "",
+      },
+    };
+  },
+  components: { ModalConfirm },
   computed: {
     ...mapGetters({ selectedItems: "books/GET_SELECTED_ITEM" }),
     ...mapGetters({ totalPrice: "books/GET_TOTAL_PRICE" }),
