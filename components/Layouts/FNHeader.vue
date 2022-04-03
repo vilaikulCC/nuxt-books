@@ -55,7 +55,7 @@ header {
   max-height: $header-height;
   position: sticky;
   width: 100%;
-  z-index: 1;
+  z-index: 100;
   top: 0;
   .data-header {
     display: grid;

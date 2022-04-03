@@ -10,6 +10,7 @@
       </div>
     </div>
 
+    <LoadingData :isLoading="loading" />
     <BooksItem :items="booksList" />
     <BooksPagination
       :totalPage="totalPage"
@@ -25,6 +26,8 @@ import axios from "axios";
 import https from "https";
 import BooksItem from "@/components/Content/BooksItems.vue";
 import BooksPagination from "@/components/Content/BooksPagination.vue";
+import LoadingData from "../Shared/LoadingData.vue";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const baseURL = process.env.baseUrl;
 export default Vue.extend({
@@ -32,6 +35,7 @@ export default Vue.extend({
   components: {
     BooksItem,
     BooksPagination,
+    LoadingData,
   },
   data() {
     return {
@@ -43,31 +47,22 @@ export default Vue.extend({
       loading: false as Boolean,
     };
   },
-  computed: {
-    // ...mapGetters({totalPage: 'getTotalPages'}),
-  },
   methods: {
     async fetchTotalItems() {
-      this.loading = true;
       const fetchedTotalPages = await axios
         .get(`${baseURL}books`)
         .then((response) => {
           this.totalItems = response.headers["x-wp-total"];
-          this.loading = false;
         });
     },
     async fetchTotalPages() {
-      this.loading = true;
-
       const agent = new https.Agent({
         rejectUnauthorized: false,
       });
       const fetchedTotalPages = await axios
         .get(`${baseURL}books`, { httpsAgent: agent })
         .then((response) => {
-
           this.totalPage = Math.ceil(this.totalItems / this.showPages);
-          this.loading = false;
         });
     },
     async onPageChange(page: Number) {
