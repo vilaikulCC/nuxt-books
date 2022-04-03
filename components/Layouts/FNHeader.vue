@@ -53,6 +53,10 @@ export default Vue.extend({
 header {
   background-color: $primary-color;
   max-height: $header-height;
+  position: sticky;
+  width: 100%;
+  z-index: 1;
+  top: 0;
   .data-header {
     display: grid;
     grid-template-columns: auto auto;
