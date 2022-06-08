@@ -1,6 +1,7 @@
 export default {
   env: {
-    baseUrl: process.env.BASE_URL || "https://booksapi.vilaikul.com/wp-json/wp/v2/",
+    baseUrl:
+      process.env.BASE_URL || "https://booksapi.vilaikul.com/wp-json/wp/v2/",
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -38,9 +39,18 @@ export default {
     "@nuxt/typescript-build",
     "@nuxtjs/style-resources",
   ],
-
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/gtm"],
+
+  gtm: {
+    id: "GTM-5LDGV5H",
+    enabled: true,
+  },
+  publicRuntimeConfig: {
+    gtm: {
+      id: process.env.BASE_URL === 'localhost' ? "GTM-PMRGD9G" : "GTM-5LDGV5H",
+    }
+  },
 
   styleResources: {
     scss: ["./assets/css/*.scss"],
